@@ -8,6 +8,7 @@
       </svg>
     </span>
     <app-search-bar></app-search-bar>
-    <button>Clear</button>
+    <app-dropdown [values]="dropdownValues"></app-dropdown>
+    <button (click)="clearFilters()">Clear</button>
   </div>
 </header>

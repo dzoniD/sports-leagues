@@ -1,0 +1,6 @@
+<select [(ngModel)]="selectedValue">
+  <option value="">All Sports</option>
+  @for (value of values(); track value) {
+  <option [value]="value">{{ value }}</option>
+  }
+</select>
