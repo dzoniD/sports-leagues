@@ -4,10 +4,8 @@ import { Header } from './shared/components/header/header';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Header],
+  imports: [RouterOutlet],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
-export class App {
-  protected readonly title = signal('sports-leagues');
-}
+export class App {}

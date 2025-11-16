@@ -1,0 +1,44 @@
+<app-header></app-header>
+<div class="home">
+  <div class="content">
+    @if(leagues().length > 0){
+    <div>
+      <h2>Leagues ({{ leagues().length }})</h2>
+      <div class="leagues-grid">
+        @for (league of leagues(); track league.idLeague) {
+        <div class="league-card">
+          <app-card (click)="onLeagueClick(league)" [league]="league"></app-card>
+        </div>
+        }
+      </div>
+    </div>
+    }@else{
+    <p class="no-leagues">No leagues available</p>
+    }
+  </div>
+  @if (showOverlay()) {
+  <div class="overlay" (click)="closeOverlay()">
+    <div class="overlay-content" (click)="$event.stopPropagation()">
+      <button class="close-btn" (click)="closeOverlay()">✕</button>
+
+      @if (loading()) {
+      <div class="loading">
+        <p>loading...</p>
+      </div>
+      } @if (badgeToDisplay()) {
+      <div class="badge-container">
+        <h2>{{ badgeToDisplay()?.strSeason || 'Badge' }}</h2>
+
+        @if (badgeToDisplay()?.strBadge) {
+        <img [src]="badgeToDisplay()?.strBadge" alt="League Badge" class="badge-image" />
+        } @else {
+        <div class="no-image">
+          <p>Image not available</p>
+        </div>
+        }
+      </div>
+      }
+    </div>
+  </div>
+  }
+</div>
