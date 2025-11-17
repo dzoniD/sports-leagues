@@ -1,59 +1,34 @@
-# SportsLeagues
+# Sports Leagues
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.10.
 
-## Development server
+### AI Tools Used
 
-To start a local development server, run:
+GitHub Copilot was used to quickly scaffold the initial HTML and CSS structure, speeding up early UI implementation.
 
-```bash
-ng serve
-```
+Copilot assisted with generating repetitive markup and boilerplate styles, while all component logic, state flow, and architecture decisions were implemented manually.
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+ChatGPT was used as an auxiliary tool for error checking, similar to using a search engine or technical reference.
 
-## Code scaffolding
+### Design Decisions
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+#### Signals for Reactivity
 
-```bash
-ng generate component component-name
-```
+Angular Signals were chosen as the primary reactivity model to reduce template complexity, avoid unnecessary subscriptions, and improve performance through fine-grained reactivity.
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+#### @ngrx/signals Store
 
-```bash
-ng generate --help
-```
+Used as a lightweight, signal-based state management layer. This allowed shared state (search term, selected dropdown value, filters, etc.) between the search bar, dropdown, and the Home component without introducing the complexity of a full NgRx setup.
 
-## Building
+#### Component Isolation
 
-To build the project run:
+Each UI feature is built as an independent component (header, search bar, dropdown, card, league list). This improves reusability, readability, and testability.
 
-```bash
-ng build
-```
+#### Shared Store for Search Workflow
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Both the search bar and dropdown interact with the central FilterStore, ensuring consistent state flow and eliminating props drilling.
 
-## Running unit tests
+#### Clean, Predictable Data Flow
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+The app follows a one-directional data flow:
+Store (signals) → Components → User Actions → Store Updates.
